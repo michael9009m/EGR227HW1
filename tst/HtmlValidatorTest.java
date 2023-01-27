@@ -8,6 +8,7 @@
 
 import org.junit.Assert;
 import org.junit.Test;
+import java.util.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -313,8 +314,19 @@ public class HtmlValidatorTest {
 	 */
 	@Test
 	public void myRemoveAllTest1(){
+        HtmlTag[] tagsArr = {new HtmlTag("Hello"), new HtmlTag("There")};
+        List<HtmlTag> tags = new ArrayList<>(Arrays.asList(tagsArr));
+        HtmlValidator validator = new HtmlValidator();
+        tags.forEach(validator::addTag);
+        validator.addTag(new HtmlTag("General Kenobi"));
 
-	}
+        validator.removeAll("General Kenobi");
+
+        Assert.assertEquals(tags, validator.getTags());
+    }
+
+
+
 
 	/**
 	 * Add your own test to test your removeAll method
@@ -322,7 +334,15 @@ public class HtmlValidatorTest {
 	 */
 	@Test
 	public void myRemoveAllTest2(){
+        HtmlTag[] tagsArr = {new HtmlTag("John"), new HtmlTag("Smith")};
+        List<HtmlTag> tags = new ArrayList<>(Arrays.asList(tagsArr));
+        HtmlValidator validator = new HtmlValidator();
+        tags.forEach(validator::addTag);
+        validator.addTag(new HtmlTag("Momma Jamma"));
 
+        validator.removeAll("Momma Jamma");
+
+        Assert.assertEquals(tags, validator.getTags());
 	}
 
 	/**
@@ -331,6 +351,19 @@ public class HtmlValidatorTest {
 	 */
 	@Test
 	public void myRemoveAllTest3(){
+        HtmlTag[] tagsArr = {new HtmlTag("Kobe"), new HtmlTag("Bryant")};
+        List<HtmlTag> tags = new ArrayList<>(Arrays.asList(tagsArr));
+        HtmlValidator validator = new HtmlValidator();
+        tags.forEach(validator::addTag);
+        validator.addTag(new HtmlTag("Lebron James"));
+        validator.addTag(new HtmlTag("Steph Curry"));
+        validator.addTag(new HtmlTag("Joel Embiid"));
+        validator.removeAll("Lebron James");
+        validator.removeAll("Steph Curry");
+        validator.removeAll("Joel Embiid");
+
+
+        Assert.assertEquals(tags, validator.getTags());
 
 	}
 
@@ -340,6 +373,15 @@ public class HtmlValidatorTest {
      */
     @Test
     public void myRemoveAllTest4(){
+        HtmlTag[] tagsArr = {new HtmlTag("1234"), new HtmlTag("5678")};
+        List<HtmlTag> tags = new ArrayList<>(Arrays.asList(tagsArr));
+        HtmlValidator validator = new HtmlValidator();
+        tags.forEach(validator::addTag);
+        validator.addTag(new HtmlTag("912345 678912"));
+
+        validator.removeAll("912345 678912");
+
+        Assert.assertEquals(tags, validator.getTags());
 
     }
 
