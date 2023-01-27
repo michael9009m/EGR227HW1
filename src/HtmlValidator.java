@@ -45,8 +45,6 @@ public class HtmlValidator {
 
             element.equals(tags.remove());
         }*/
-
-
     }
 
     public void validate(){
@@ -62,43 +60,17 @@ public class HtmlValidator {
             } else if (tag.isOpenTag()) {
                 printWithIndentation(tag, openTags.size());
                 openTags.push(tag);
-            } else if (!openTags.isEmpty() && tag.matches(openTags.peek())) { // By exhaustion, the tag must be a closing tag
-                // Closing tag should be at same depth as opening, so we pop before printing
+            } else if (!openTags.isEmpty() && tag.matches(openTags.peek())) {
                 openTags.pop();
                 printWithIndentation(tag, openTags.size());
             } else {
                 System.out.println("ERROR unexpected tag: " + tag.toString());
             }
         }
-        // Deal with unclosed tags
         while (!openTags.isEmpty()) {
             HtmlTag tag = openTags.pop();
             System.out.println("ERROR unclosed tag: " + tag.toString());
         }
-        /*
-        Stack<HtmlTag> openTags = new Stack<>();
-        for(int i = 0; i < tags.size(); i++){
-            HtmlTag tag = tags.remove();
-            tags.add(tag);
-
-            if(tag.isSelfClosing()){
-                printWithIndentation(tag, openTags.size());
-            } else if(tag.isOpenTag()){
-                printWithIndentation(tag, openTags.size());
-            } else if(!openTags.isEmpty() && tag.matches(openTags.peek())){
-                openTags.pop();
-                printWithIndentation(tag, openTags.size());
-            }
-            else{
-                System.out.println("Error! Unexpected tag: " + tag.toString());
-            }
-        }
-
-        while(!openTags.isEmpty()){
-            HtmlTag tag = openTags.pop();
-            System.out.println("Error unclosed tag:" + tag.toString());
-        }*/
-
     }
 
     private static void printWithIndentation(HtmlTag tag, int indentationLevel){
